@@ -8,7 +8,7 @@ import (
 	"unicode"
 )
 
-// Options define los parámetros para generar una contraseña.
+// Options defines the parameters for generating a password.
 type Options struct {
 	Length     int
 	UseUpper   bool
@@ -17,8 +17,8 @@ type Options struct {
 	UseSymbols bool
 }
 
-// Generate crea una contraseña aleatoria criptográficamente segura según
-// las opciones proporcionadas. Devuelve un error si la configuración no es válida.
+// Generate creates a cryptographically secure random password based on
+// the provided options. Returns an error if the configuration is invalid.
 func Generate(opts Options) (string, error) {
 	const MaxPasswordLength = 128
 	var charset string
@@ -36,20 +36,20 @@ func Generate(opts Options) (string, error) {
 		charset += "!@#$%^&*()-_=+[]{}<>?/|"
 	}
 	if opts.Length <= 0 {
-		return "", errors.New("la longitud debe ser mayor a 0")
+		return "", errors.New("length must be greater than 0")
 	}
 	if opts.Length > MaxPasswordLength {
-		return "", errors.New("la longitud máxima permitida es 128")
+		return "", errors.New("maximum allowed length is 128")
 	}
 	if charset == "" {
-		return "", errors.New("seleccioná al menos un tipo de caracter")
+		return "", errors.New("select at least one character type")
 	}
 
 	password := make([]byte, opts.Length)
 	for i := range password {
 		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
 		if err != nil {
-			return "", fmt.Errorf("error al generar aleatoriedad: %w", err)
+			return "", fmt.Errorf("error generating randomness: %w", err)
 		}
 		password[i] = charset[n.Int64()]
 	}
@@ -57,8 +57,8 @@ func Generate(opts Options) (string, error) {
 	return string(password), nil
 }
 
-// StrengthScore evalúa la fortaleza de una contraseña y devuelve una de las
-// siguientes categorías: "Débil", "Media", "Fuerte" o "Muy fuerte".
+// StrengthScore evaluates the strength of a password and returns one of the
+// following categories: "Weak", "Medium", "Strong" or "Very strong".
 func StrengthScore(password string) string {
 	score := 0
 
@@ -100,12 +100,12 @@ func StrengthScore(password string) string {
 
 	switch {
 	case score >= 6:
-		return "Muy fuerte"
+		return "Very strong"
 	case score >= 5:
-		return "Fuerte"
+		return "Strong"
 	case score >= 3:
-		return "Media"
+		return "Medium"
 	default:
-		return "Débil"
+		return "Weak"
 	}
 }

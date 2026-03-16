@@ -1,14 +1,14 @@
 # password_generator
 
-Librería Go para generar contraseñas aleatorias criptográficamente seguras, con evaluador de fortaleza integrado. También incluye una CLI lista para usar.
+Go library for generating cryptographically secure random passwords, with a built-in strength evaluator. Also includes a ready-to-use CLI.
 
-## Instalación
+## Installation
 
 ```bash
 go get github.com/jcoppede11/password_generator
 ```
 
-## Uso como librería
+## Usage as a library
 
 ```go
 import "github.com/jcoppede11/password_generator"
@@ -30,28 +30,28 @@ fmt.Println(generator.StrengthScore(password))
 
 ### Options
 
-| Campo        | Tipo   | Descripción                              | Default |
+| Field        | Type   | Description                              | Default |
 |--------------|--------|------------------------------------------|---------|
-| `Length`     | `int`  | Longitud de la contraseña (máximo: 128)  | —       |
-| `UseUpper`   | `bool` | Incluir letras mayúsculas (A–Z)          | `false` |
-| `UseLower`   | `bool` | Incluir letras minúsculas (a–z)          | `false` |
-| `UseNumbers` | `bool` | Incluir dígitos (0–9)                    | `false` |
-| `UseSymbols` | `bool` | Incluir símbolos (!@#$%^&*…)             | `false` |
+| `Length`     | `int`  | Password length (maximum: 128)           | —       |
+| `UseUpper`   | `bool` | Include uppercase letters (A–Z)          | `false` |
+| `UseLower`   | `bool` | Include lowercase letters (a–z)          | `false` |
+| `UseNumbers` | `bool` | Include digits (0–9)                     | `false` |
+| `UseSymbols` | `bool` | Include symbols (!@#$%^&*…)              | `false` |
 
 ### StrengthScore
 
-Evalúa la fortaleza de cualquier contraseña y devuelve uno de estos valores:
+Evaluates the strength of any password and returns one of these values:
 
-| Resultado    | Criterio                         |
-|--------------|----------------------------------|
-| `Débil`      | score < 3                        |
-| `Media`      | score 3–4                        |
-| `Fuerte`     | score 5                          |
-| `Muy fuerte` | score ≥ 6                        |
+| Result        | Criterion                        |
+|---------------|----------------------------------|
+| `Weak`        | score < 3                        |
+| `Medium`      | score 3–4                        |
+| `Strong`      | score 5                          |
+| `Very strong` | score ≥ 6                        |
 
-El score combina la longitud (0–3 puntos) y la variedad de caracteres (0–4 puntos).
+The score combines length (0–3 points) and character variety (0–4 points).
 
-## Uso como CLI
+## Usage as a CLI
 
 ```bash
 go run cmd/password-generator/main.go -length=16 -uppercase=true -lowercase=true -numbers=true -symbols=true
@@ -59,34 +59,34 @@ go run cmd/password-generator/main.go -length=16 -uppercase=true -lowercase=true
 
 ### Flags
 
-| Flag          | Default | Descripción              |
-|---------------|---------|--------------------------|
-| `-length`     | `12`    | Longitud de la contraseña |
-| `-uppercase`  | `true`  | Incluir mayúsculas        |
-| `-lowercase`  | `true`  | Incluir minúsculas        |
-| `-numbers`    | `true`  | Incluir números           |
-| `-symbols`    | `true`  | Incluir símbolos          |
+| Flag          | Default | Description               |
+|---------------|---------|---------------------------|
+| `-length`     | `12`    | Password length            |
+| `-uppercase`  | `true`  | Include uppercase letters  |
+| `-lowercase`  | `true`  | Include lowercase letters  |
+| `-numbers`    | `true`  | Include numbers            |
+| `-symbols`    | `true`  | Include symbols            |
 
-### Ejemplo de salida
+### Example output
 
 ```
-Contraseña generada: aK3$gTz9@Lpw1Xm#
-Fortaleza:           Muy fuerte
+Generated password: aK3$gTz9@Lpw1Xm#
+Strength:           Very strong
 ```
 
-## Estructura del proyecto
+## Project structure
 
 ```
 .
-├── generator.go          # API pública
+├── generator.go          # Public API
 ├── generator_test.go
 ├── go.mod
 ├── internal/
 │   └── app/
-│       └── app.go        # Orquestación CLI
+│       └── app.go        # CLI orchestration
 └── cmd/
     └── password-generator/
-        └── main.go       # Punto de entrada
+        └── main.go       # Entry point
 ```
 
 ## Tests
@@ -95,10 +95,10 @@ Fortaleza:           Muy fuerte
 go test -v
 ```
 
-## Requisitos
+## Requirements
 
-Go 1.24.2 o superior.
+Go 1.24.2 or higher.
 
-## Licencia
+## License
 
 [MIT](LICENSE)

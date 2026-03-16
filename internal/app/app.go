@@ -8,16 +8,16 @@ import (
 	generator "github.com/jcoppede11/password_generator"
 )
 
-// Run parsea los flags de línea de comandos, genera la contraseña y
-// escribe el resultado en stdout. Devuelve un error si algo falla.
+// Run parses command-line flags, generates a password and
+// writes the result to stdout. Returns an error if something fails.
 func Run() error {
 	flags := flag.NewFlagSet(os.Args[0], flag.ExitOnError)
 
-	length := flags.Int("length", 12, "Longitud de la contraseña")
-	useUpper := flags.Bool("uppercase", true, "Incluir mayúsculas")
-	useLower := flags.Bool("lowercase", true, "Incluir minúsculas")
-	useNumbers := flags.Bool("numbers", true, "Incluir números")
-	useSymbols := flags.Bool("symbols", true, "Incluir símbolos")
+	length := flags.Int("length", 12, "Password length")
+	useUpper := flags.Bool("uppercase", true, "Include uppercase letters")
+	useLower := flags.Bool("lowercase", true, "Include lowercase letters")
+	useNumbers := flags.Bool("numbers", true, "Include numbers")
+	useSymbols := flags.Bool("symbols", true, "Include symbols")
 
 	if err := flags.Parse(os.Args[1:]); err != nil {
 		return err
@@ -34,8 +34,8 @@ func Run() error {
 		return err
 	}
 
-	fmt.Println("Contraseña generada:", password)
-	fmt.Println("Fortaleza:          ", generator.StrengthScore(password))
+	fmt.Println("Generated password:", password)
+	fmt.Println("Strength:          ", generator.StrengthScore(password))
 
 	return nil
 }
